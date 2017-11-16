@@ -119,4 +119,6 @@ Here's a [link to my video result](./project_video_final2.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The main issue was stability of the lines. I solved it by using averaging coefficients determining line shape over time. Another problem was that sometimes top of the line was not isolated properly in the binary image, which resulted in a different curvature of both lines. It was solved by forcing curvatures of both lines to be the same by averaging line coefficients. Weights used for averaging are proportional to current line stability (measured using standard deviation).
+
+Pipeline will probably fail if only one line is visible, algorithm could be changed to determine where is the interior of the line in this case. Another improvement could be allowing lane to be have non-central location, which would make the pipeline more robust in case of lane change.
