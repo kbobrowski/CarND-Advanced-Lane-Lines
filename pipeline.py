@@ -302,6 +302,11 @@ class LaneFinder(object):
         result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)
         return result
 
+    
+    def test_undistort(self, img):
+        return cv2.undistort(img, self.mtx, self.dist, None, self.mtx)
+
+
 
     def run(self, img, **kwargs):
         testrun = kwargs.get('testrun', False)
@@ -366,18 +371,6 @@ rawimages = glob('test_images/*.jpg')
 process = LaneFinder(calibration_images)
 
 from tunepy import tunepy, tunable
-
-if False:
-    fname = 'challenge_video.mp4'
-    vidcap = cv2.VideoCapture(fname)
-    count = 0
-    while True:
-        print(count)
-        success, img = vidcap.read()
-        if not success: break
-        np.save('frames/{}'.format(count), img)
-        count += 1
-
 
 @tunepy
 def get_frame(frame_number, s_thresh_low, s_thresh_high, sx_thresh_low, sx_thresh_high):
